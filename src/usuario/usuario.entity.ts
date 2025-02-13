@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Rol } from "src/rol/rol.entity";
+import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'users' })
 export class Usuario {
@@ -26,4 +27,7 @@ export class Usuario {
 
     @UpdateDateColumn()
     fechaActualizacion: Date;
+
+    @ManyToMany(() => Rol, (rol) => rol.usuarios)
+    roles: Rol[];
 }

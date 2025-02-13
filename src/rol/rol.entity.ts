@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Usuario } from "src/usuario/usuario.entity";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity({name: 'rol'})
-export class Rol{
+@Entity({ name: 'rol' })
+export class Rol {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -9,16 +10,20 @@ export class Rol{
     @Column()
     nombre: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     descripcion?: string;
 
-    @Column({type: 'char', length: 1,default: 'A'})
-    estado:string; //activo:A, inactivo:I
+    @Column({ type: 'char', length: 1, default: 'A' })
+    estado: string; //activo:A, inactivo:I
 
-    @CreateDateColumn({name: 'fecha_creacion'})
+    @CreateDateColumn({ name: 'fecha_creacion' })
     fechaCreacion: Date;
 
-    @UpdateDateColumn({name: 'fecha_actualizacion'})
+    @UpdateDateColumn({ name: 'fecha_actualizacion' })
     fechaActualizacion: Date;
+
+    @ManyToMany(() => Usuario, (usuario) => usuario.roles)
+    @JoinTable({ name: 'rol_usuario' })
+    usuarios: Usuario[];
 
 }

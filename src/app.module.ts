@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Rol } from './rol/rol.entity';
 import { RolModule } from './rol/rol.module';
-import { Usuario } from './usuario/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ProyectoModule } from './proyecto/proyecto.module';
+import { TareaModule } from './tarea/tarea.module';
 
 
 @Module({
@@ -15,11 +15,14 @@ import { UsuarioModule } from './usuario/usuario.module';
       username: 'postgres',
       password: 'admin**123',
       database: 'api-usuarios',
-      entities: [Rol, Usuario],
+      //entities: [Rol, Usuario,Proyecto],
+      entities:[__dirname+'/**/*.entity{.ts,.js}'],
       synchronize: true
     }),
     RolModule,
-    UsuarioModule
+    UsuarioModule,
+    ProyectoModule,
+    TareaModule
   ]
 })
 export class AppModule { }
